@@ -62,30 +62,30 @@ export default function Navbar() {
 
      
       <div
-        className={`fixed top-0 right-0 text-black h-screen w-1/2 bg-white shadow-md p-4 z-40 duration-300 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <button className="absolute top-4 right-4" onClick={toggleMenu}>
-          <X size={24} />
-        </button>
-        <ul className="mt-12">
-          {links.map(({ name, path }) => (
-            <li key={name} className="py-2 border-b">
-              <NavLink href={path} onClick={() => setIsOpen(false)}>
-                {name}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-4">
-          <Link href="/login">
-            <button className="bg-blue-500 w-full py-2 rounded-md text-white hover:bg-blue-600">
-              Login
-            </button>
-          </Link>
-        </div>
-      </div>
+  className={`fixed top-0 right-0 h-screen w-1/2 bg-white shadow-md p-4 z-40 duration-300 ${
+    isOpen ? "translate-x-0" : "translate-x-full"
+  }`}
+>
+  <button className="absolute top-4 right-4" onClick={toggleMenu}>
+    <X size={24} />
+  </button>
+  <ul className="mt-12 space-y-4"> 
+    {links.map(({ name, path }) => (
+      <li key={name}>
+        <NavLink href={path} onClick={() => setIsOpen(false)}>
+          <span className="text-black">{name}</span> 
+        </NavLink>
+      </li>
+    ))}
+  </ul>
+  <div className="mt-4">
+    <Link href="/login">
+      <button className="bg-blue-500 w-full py-2 rounded-md text-white hover:bg-blue-600">
+        Login
+      </button>
+    </Link>
+  </div>
+</div>
     </>
   );
 }
