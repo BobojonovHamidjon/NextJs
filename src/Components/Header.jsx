@@ -2,23 +2,26 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import NavLink from "./NavLink"; 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
+  const toggleMenu = () => setIsOpen(!isOpen);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const links = [
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: "About", path: "/about" },
+    { name: "Register", path: "/register" },
+  ];
 
   return (
     <>
+     
       <nav className="bg-gray-800 text-white shadow-md p-4 fixed top-0 left-0 w-full z-50">
         <div className="container mx-auto flex justify-between items-center">
-         
-          <h1 className="flex items-center space-x-2 font-bold text-3xl">
+        <h1 className="flex items-center space-x-2 font-bold text-3xl">
             <svg
               width="22"
               height="33"
@@ -34,22 +37,12 @@ export default function Navbar() {
             <>Finsweet</>
           </h1>
 
-         
+        
           <div className="hidden md:flex space-x-6 items-center">
             <ul className="flex space-x-6">
-              {["Home", "Blog", "About", "Register"].map((name, index) => (
-                <li key={index}>
-                  <Link href={name === "Home" ? "/" : `/${name.toLowerCase()}`}>
-                    <span
-                      className={`text-white hover:text-gray-600 cursor-pointer ${
-                        pathname === (name === "Home" ? "/" : `/${name.toLowerCase()}`)
-                          ? "font-bold text-black"
-                          : ""
-                      }`}
-                    >
-                      {name}
-                    </span>
-                  </Link>
+              {links.map(({ name, path }) => (
+                <li key={name}>
+                  <NavLink href={path}>{name}</NavLink>
                 </li>
               ))}
             </ul>
@@ -60,15 +53,16 @@ export default function Navbar() {
             </Link>
           </div>
 
+     
           <button className="md:hidden" onClick={toggleMenu}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </nav>
 
-
+     
       <div
-        className={`fixed top-0 right-0 h-screen w-1/2 bg-white shadow-md p-4 z-40 duration-300 ${
+        className={`fixed top-0 right-0 text-black h-screen w-1/2 bg-white shadow-md p-4 z-40 duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -76,20 +70,11 @@ export default function Navbar() {
           <X size={24} />
         </button>
         <ul className="mt-12">
-          {["Home", "Blog", "About", "Register"].map((name, index) => (
-            <li key={index} className="py-2 border-b">
-              <Link href={name === "Home" ? "/" : `/${name.toLowerCase()}`}>
-                <span
-                  className={`text-gray-600 hover:text-black block ${
-                    pathname === (name === "Home" ? "/" : `/${name.toLowerCase()}`)
-                      ? "font-bold text-black"
-                      : ""
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {name}
-                </span>
-              </Link>
+          {links.map(({ name, path }) => (
+            <li key={name} className="py-2 border-b">
+              <NavLink href={path} onClick={() => setIsOpen(false)}>
+                {name}
+              </NavLink>
             </li>
           ))}
         </ul>
