@@ -95,7 +95,7 @@ export default function Navbar() {
         </ul>
         <div className="mt-4">
           <Link href="/login">
-            <button className="bg-yellow-400 w-full py-2 rounded-md text-white hover:bg-yellow-500">
+            <button className="bg-blue-500 w-full py-2 rounded-md text-white hover:bg-blue-600">
               Login
             </button>
           </Link>
